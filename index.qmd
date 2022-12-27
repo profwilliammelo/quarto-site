@@ -4,7 +4,9 @@ title: "quarto-site"
 
 SITE EM DESENVOLVIMENTO
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+TESTE DE DEPLOT NO NETLIFY
+
+<https://quarto.org/docs/websites>.
 
 ```{r}
 1 + 1
