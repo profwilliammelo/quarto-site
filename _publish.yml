@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 5b9e4c1e-a5f2-4739-9027-ad1db426ed3f
+      url: 'https://calm-salamander-c78be9.netlify.app'
