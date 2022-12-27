@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "quarto-site",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "orcamento.html",
+    "href": "orcamento.html",
+    "title": "Proposta de trabalho e de orçamento",
+    "section": "",
+    "text": "Beneficiária/cliente: Juliana Santos.\nObjetivo: Realizar uma análise de recorte racial entre mulheres que possuem lupus no Rio de Janeiro.\nTipo de dados coletados: prontuários de hospital em contexto de trabalho pessoal."
+  },
+  {
+    "objectID": "orcamento.html#valor-total-do-serviço",
+    "href": "orcamento.html#valor-total-do-serviço",
+    "title": "Proposta de trabalho e de orçamento",
+    "section": "Valor total do serviço",
+    "text": "Valor total do serviço\n\n\n\n\nO valor total do serviço, dado pelo somatório de mini-relatorio com os dados (data reporting), analise bi-variada raca x idade, analise bi-variada raca x moradia e analise univariada raca lupus fica em\n\n\n💲R$250,00.\n\n\nPara detalhes da planilha de valores, ver aqui no Notion.\n\n\n\nWilliam Corrêa de Melo\nEducação com Evidências ®️\n@profwilliammelo | @educomevidencias"
+  }
+]

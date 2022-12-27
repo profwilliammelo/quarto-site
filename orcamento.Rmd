@@ -1,0 +1,143 @@
+---
+title: "Proposta de trabalho e de orçamento"
+author: "William Melo"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    code_folding: null
+    theme:
+      bg: '#ffcccc'
+      fg: black
+      primary: '#EA80FC'
+      secondary: '#00DAC6'
+      base_font:
+        google: Prompt
+      heading_font:
+        google: Proza Libre
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+---
+
+```{r setup, include=FALSE}
+if (requireNamespace("thematic")) 
+  thematic::thematic_rmd(font = "auto")
+
+```
+
+## Orçamento de trabalho {.tabset .tabset-pills}
+
+`Beneficiária/cliente:` Juliana Santos.
+
+`Objetivo:` Realizar uma análise de recorte racial entre mulheres que possuem lupus no Rio de Janeiro.
+
+`Tipo de dados coletados:` prontuários de hospital em contexto de trabalho pessoal.
+
+------------------------------------------------------------------------
+
+### Orçamento em tabela
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(DT)
+library(plotly)
+
+# source("orcamentos.R")
+
+{
+  # Carregando base ---------------
+  
+  juliana_notion <- read.csv("juliana_notion.csv")
+  
+  # Pegando parte que interessa do banco de dados de orcamento ------------
+
+  
+juliana_notion <-
+  juliana_notion %>% select(
+     properties.objeto.title.text.content, 
+     properties.custo.por.trabalho.number,
+     properties.quantidade.de.trabalhos.number,
+     properties.custo.total.formula.number
+  ) %>% 
+  rename("OBJETO" = properties.objeto.title.text.content,
+         "CUSTO POR TRABALHO" = properties.custo.por.trabalho.number,
+         "QUANTIDADE DE TRABALHOS" = properties.quantidade.de.trabalhos.number,
+         "CUSTO TOTAL" = properties.custo.total.formula.number)
+
+# Tabela de orcamento ----------------
+
+tabela_DT_orcamento <-
+  juliana_notion %>% mutate(across(
+    .cols = c(`CUSTO POR TRABALHO`, `CUSTO TOTAL`),
+    .fns = ~ paste0("R$", .x, ",00")
+  )) %>% datatable(filter = "top", extensions = "Buttons", options = list(dom = "Bfrtip", buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+
+# Gráfico --------------------
+
+juliana_notion <- juliana_notion %>% mutate(across(.cols = c(`CUSTO POR TRABALHO`, `QUANTIDADE DE TRABALHOS`, `CUSTO TOTAL`), .fns = ~as.numeric(.x))) 
+
+grafico_orcamento <-
+  juliana_notion %>%
+  ggplot(aes(x = OBJETO, y = `CUSTO TOTAL`, fill = OBJETO)) + labs(fill = "SERVIÇO") + 
+  geom_col(col = "black") + coord_flip() + xlab("SERVIÇO") + scale_y_continuous(labels = function(x){paste0("R$", x, ",00")}) 
+
+grafico_orcamento_plotly <- ggplotly(grafico_orcamento + labs(title = "Valores por servico", caption = "William Melo"))
+
+
+  
+}
+
+tabela_DT_orcamento
+
+
+```
+
+### Orçamento por objeto (em gráfico)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,  fig.width=15, fig.height=4}
+
+library(plotly)
+
+grafico_orcamento_plotly
+
+
+```
+
+## Valor total do serviço
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+
+# library(summaryBox)
+
+valor_total <- sum(juliana_notion$`CUSTO TOTAL`)
+valor_total_reais <- paste0("R$", valor_total, ",00")
+
+# summaryBox(title = "Valor total", "$40,000", icon = "fa fa-usd", width = 3)
+
+# flexdashboard::valueBox(value = paste0("R$", valor_total, ",00"), caption = "Somatório dos serviços", color = "purple", href = "https://williammelo.notion.site/210829c930904500b9e9e7d9d91929ea?v=df08a0ce25cf43a29f440188c3c5400f")
+
+
+```
+
+> O valor total do serviço, dado pelo somatório de **`r juliana_notion$OBJETO[1]`**, **`r juliana_notion$OBJETO[2]`**, **`r juliana_notion$OBJETO[3]`** e **`r juliana_notion$OBJETO[4]`** fica em
+
+> ### 💲`r valor_total_reais`.
+
+> Para detalhes da planilha de valores, ver [aqui no Notion](https://williammelo.notion.site/210829c930904500b9e9e7d9d91929ea?v=df08a0ce25cf43a29f440188c3c5400f).
+
+------------------------------------------------------------------------
+
+<center>
+
+William Corrêa de Melo
+
+Educação com Evidências ®️
+
+@profwilliammelo \| @educomevidencias
+
+![](images/Sem%20nome%20(400%C2%A0%C3%97%C2%A0400%C2%A0px)%20(1).png){width="49"}![](images/Logo%20EcE%20sem%20nome.png){width="55"}
+
+</center>
